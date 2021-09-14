@@ -11,13 +11,11 @@ namespace FBDatadriven.LoginPage
 {
     public class UserData
     {
-            public string UserId;
-            public string Email;
-            public string Password;
+        public string Email;
+        public string Password;
 
-        public UserData(string userId,string email,string password)
+        public UserData(string email, string password)
         {
-            this.UserId = userId;
             this.Email = email;
             this.Password = password;
         }
