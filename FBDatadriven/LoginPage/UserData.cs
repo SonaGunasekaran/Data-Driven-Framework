@@ -13,7 +13,6 @@ namespace FBDatadriven.LoginPage
     {
         public string Email;
         public string Password;
-
         public UserData(string email, string password)
         {
             this.Email = email;

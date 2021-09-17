@@ -4,6 +4,7 @@
  * Date :12/09/2021
  */
 using FBDatadriven.LoginPage;
+using Microsoft.VisualBasic.FileIO;
 using System.IO;
 using System.Linq;
 
@@ -12,37 +13,36 @@ namespace FBDatadriven.DoAction
 {
     public class DoActions : Base.Baseclass
     {
-        string[] userData;
+        
         public void LoadUserData(string csvFilePath, string dataHeader)
         {
-            //Read all lines from csv file
-            userData = File.ReadAllLines(csvFilePath);
-
-            //Skip the header
-            //string[] column = new string[1];
-            foreach (var data in userData.Skip(1))
+            using (TextFieldParser csvParser = new TextFieldParser(csvFilePath))
             {
-                //Split the column by comma
-                string[] column = data.Split(",");
-                if (csvFilePath.Contains("FBfile.csv"))
+                csvParser.SetDelimiters(new string[] { "," });
+                csvParser.HasFieldsEnclosedInQuotes = true;
+
+                // Skip the row with the column names
+                csvParser.ReadLine();
+
+                while (!csvParser.EndOfData)
                 {
+                    // Read current line fields, pointer moves to the next line.
+                    string[] fields = csvParser.ReadFields();
+                 
                     FbLoginPage login = new FbLoginPage(driver);
-                    //Check email by name 
-                    login.email.SendKeys(column[0]);
+                    //Check email by name
+                    login.email.SendKeys(fields[0]);
                     System.Threading.Thread.Sleep(1000);
+
                     //check password by id
-                    login.password.SendKeys(column[1]);
+                    login.password.SendKeys(fields[1]);
                     System.Threading.Thread.Sleep(1000);
+
                     //check login by loginbutton
                     login.loginbtn.Click();
-                    System.Threading.Thread.Sleep(1000);
-
                 }
             }
-
         }
-
     }
 }
-
 
