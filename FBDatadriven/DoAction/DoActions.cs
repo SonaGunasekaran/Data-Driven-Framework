@@ -5,16 +5,13 @@
  */
 using FBDatadriven.LoginPage;
 using Microsoft.VisualBasic.FileIO;
-using System.IO;
-using System.Linq;
-
 
 namespace FBDatadriven.DoAction
 {
     public class DoActions : Base.Baseclass
     {
         
-        public void LoadUserData(string csvFilePath, string dataHeader)
+        public static void LoadUserData(string csvFilePath, string dataHeader)
         {
             using (TextFieldParser csvParser = new TextFieldParser(csvFilePath))
             {
@@ -40,6 +37,7 @@ namespace FBDatadriven.DoAction
 
                     //check login by loginbutton
                     login.loginbtn.Click();
+                    TakeScreenshot();
                 }
             }
         }

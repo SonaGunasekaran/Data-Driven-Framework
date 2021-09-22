@@ -18,6 +18,7 @@ namespace FBDatadriven.ExtendReport
             if (extent == null)
             {
                 string reportPath = @"C:\Users\sona.g\source\repos\FBDatadriven\FBDatadriven\ExtendReport\ExtendReports.html";
+                //Base.Baseclass.TakeScreenshot();
                 htmlReporter = new ExtentHtmlReporter(reportPath);
                 extent = new ExtentReports();
                 extent.AttachReporter(htmlReporter);
